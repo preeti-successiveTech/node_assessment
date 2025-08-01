@@ -2,6 +2,7 @@ import { Request, Response, Router } from "express";
 import { validate } from "../Middleware/validationMiddleware";
 import { Student } from "../models/student";
 import {auth} from "../Middleware/authMiddleware";
+import jwt from 'jsonwebtoken';
 interface jwtPayload{
     name: string,
     email : string,
@@ -120,6 +121,11 @@ router.get("/?minAge= 20 & maxAge= 30",(req:Request,res:Response)=>{
 
 });
 
+const key = process.env.Secret_key;
+        if(!key)
+        {
+           throw new Error("Key is required");
+        }
 
 router.post('/registration',(req:Request, res:Response)=>{
     const {name,email, password} = req.body;
@@ -127,7 +133,7 @@ router.post('/registration',(req:Request, res:Response)=>{
         {
             res.status(203).json({err:"name, email and password is required"});
         } 
-    // const token = jwt.sign({name,email,password},process.env.Secret_key, {expiresIn:'1h'});
+    const token = jwt.sign({name,email,password},key, {expiresIn:'1h'});
 
 
 

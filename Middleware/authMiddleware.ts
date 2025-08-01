@@ -2,8 +2,9 @@ import { NextFunction, Request, Response} from "express";
 import {jwt} from "jsonwebtoken"
 
 export class auth {
-    public static authMiddle(req:Request, res:Response, next:NextFunction):any
+    public static authMiddle():any
     {
+        return(req:Request, res:Response, next:NextFunction)=>{
         const authHeader = req.headers.authorization;
         if(!authHeader)
         {
@@ -23,5 +24,6 @@ export class auth {
             req.user = user;
         });
         next();
+    }
     }
 }
