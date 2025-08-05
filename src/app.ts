@@ -1,13 +1,12 @@
 import  express, { Request, Response }  from "express";
 import mongoose, { Error } from "mongoose";
-import studentRoute from "../router/studentRoute"
+import userRoute from './router/studentRoute';
 import dotenv from "dotenv";
+import studentRoute from './router/studentRoute';
 dotenv.config();
 const app = express();
 app.use(express.json());
-app.get('/',(req:Request,res:Response)=>{
-    res.send("Hello");
-});
+
 const mongoURI = process.env.Mongo_URI;
 if(!mongoURI)
 {
